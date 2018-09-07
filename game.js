@@ -17,6 +17,11 @@ class Game {
     console.log(`It is your turn ${this.currentPlayer.name}`);
     console.log("The current board looks like this: ");
     this.board.displayBoard();
+    this.getMove();
+    console.clear();
+  }
+
+  getMove() {
     let makeMove = false;
     while (!makeMove) {
       let moveChoice = this.currentPlayer.getMove();
@@ -26,8 +31,14 @@ class Game {
       } else {
         console.log("Invalid Move! Try again!");
       }
-      console.clear();
     }
+  }
+
+  gameOver() {
+    console.log("GAME OVER. The winner was: ");
+    this.currentPlayer.sym === this.board.winner
+      ? console.log(this.currentPlayer.name)
+      : console.log(this.board.winner);
   }
 
   play() {
@@ -37,15 +48,9 @@ class Game {
       this.switchPlayers();
       this.takeTurn();
     }
-    this.board.findWinner();
     console.clear();
-    console.log("GAME OVER. The winner was: ");
-    if (this.currentPlayer.sym === this.board.winner) {
-      console.log(this.currentPlayer.name);
-    } else {
-      console.log(this.board.winner);
-    }
     this.board.displayBoard();
+    this.gameOver();
   }
 }
 

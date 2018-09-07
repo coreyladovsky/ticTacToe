@@ -6,6 +6,38 @@ class Board extends Array {
     this.winner = null;
   }
 
+  isValidMove(moveNumber) {
+    const MOVES = {
+      1: this.board[0][0],
+      2: this.board[0][1],
+      3: this.board[0][2],
+      4: this.board[1][0],
+      5: this.board[1][1],
+      6: this.board[1][2],
+      7: this.board[2][0],
+      8: this.board[2][1],
+      9: this.board[2][2]
+    };
+    let nums = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    if (!nums.includes(Number(moveNumber))) {
+      return false;
+    }
+    if (MOVES[moveNumber] === "X" || MOVES[moveNumber] === "O") {
+      return false;
+    }
+    return true;
+  }
+
+  isGameOver() {
+    this.findWinner();
+
+    if (!this.winner && this.movesRemaining > 0) {
+      return false;
+    }
+
+    return true;
+  }
+
   placeMark(move, sym) {
     this.movesRemaining--;
 
@@ -40,41 +72,6 @@ class Board extends Array {
       default:
         return false;
     }
-  }
-
-  isValidMove(moveNumber) {
-    const MOVES = {
-      1: this.board[0][0],
-      2: this.board[0][1],
-      3: this.board[0][2],
-      4: this.board[1][0],
-      5: this.board[1][1],
-      6: this.board[1][2],
-      7: this.board[2][0],
-      8: this.board[2][1],
-      9: this.board[2][2]
-    };
-    let nums = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-    if (!nums.includes(Number(moveNumber))) {
-      return false;
-    }
-    console.log(MOVES[moveNumber]);
-    if (MOVES[moveNumber] === "X" || MOVES[moveNumber] === "O") {
-      return false;
-    }
-    return true;
-  }
-
-
-
-  isGameOver() {
-    this.findWinner();
-
-    if (!this.winner && this.movesRemaining > 0) {
-      return false;
-    }
-
-    return true;
   }
 
   findWinner() {
