@@ -30,11 +30,18 @@ class Game {
         } else {
           console.log("Invalid Move! Try again!");
         }
+        console.clear()
       }
     }
-
+    this.board.findWinner()
+    console.clear()
     console.log("GAME OVER. The winner was: ");
-    console.log(this.board.winner);
+    if(this.currentPlayer.sym === this.board.winner ) {
+      console.log(this.currentPlayer.name);
+    } else {
+      console.log(this.board.winner);
+    }
+    this.board.displayBoard()
   }
 }
 

@@ -1,7 +1,7 @@
 class Board extends Array {
   constructor() {
     super();
-    this.board = [[1, 2, 3], [4, 5, 4], [7, 8, 6]];
+    this.board = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
     this.movesRemaining = 9;
     this.winner = null;
   }
@@ -96,7 +96,7 @@ class Board extends Array {
       this.winner = d;
     }
 
-    if (this.movesRemaining === 0) {
+    if (this.movesRemaining === 0 && !this.winner) {
       this.winner = "tie";
     }
   }
