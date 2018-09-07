@@ -65,10 +65,7 @@ class Board extends Array {
     return true;
   }
 
-  // placeMark(moveNumber, sym) {
-  //   console.log(this.returnSquare(moveNumber));
-  //   // this.returnSquare(moveNumber) = sym;
-  // }
+
 
   isGameOver() {
     this.findWinner();
