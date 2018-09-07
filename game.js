@@ -1,0 +1,46 @@
+// import HumanPlayer from './human_player';
+const Board = require('./board.js')
+const HumanPlayer = require("./human_player.js");
+class Game {
+  constructor(player1, player2) {
+    this.player1 = player1;
+    this.player2 = player2;
+    this.currentPlayer = player2;
+    this.board = new Board();
+  }
+
+  switchPlayers() {
+    this.currentPlayer = this.currentPlayer === this.player1 ? this.player2 : this.player1;
+  }
+
+  play() {
+    console.clear()
+    console.log("Welcome To TIC TAC TOE!");
+    while (!this.board.isGameOver()) {
+      this.switchPlayers();
+      console.log(`It is your turn ${this.currentPlayer.name}`);
+      console.log("The current board looks like this: ");
+      this.board.displayBoard();
+      let makeMove = false;
+      while (!makeMove) {
+        let moveChoice = this.currentPlayer.getMove();
+        if (this.board.isValidMove(moveChoice)) {
+          this.board.placeMark(moveChoice, this.currentPlayer.sym);
+          makeMove = true;
+        } else {
+          console.log("Invalid Move! Try again!");
+        }
+      }
+    }
+
+    console.log("GAME OVER. The winner was: ");
+    console.log(this.board.winner);
+  }
+}
+
+// console.log(Board)
+// console.log(HumanPlayer);
+// let corey = new HumanPlayer("corey", "X");
+// let matt = new HumanPlayer("matt", "0");
+let game = new Game(new HumanPlayer("corey", "X"), new HumanPlayer("matt", "0"));
+game.play();
