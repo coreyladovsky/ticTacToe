@@ -18,7 +18,7 @@ class Game {
     console.log("The current board looks like this: ");
     this.board.displayBoard();
     this.getMove();
-    console.clear();
+    // console.clear();
   }
 
   getMove() {

@@ -4,28 +4,23 @@ class Board extends Array {
     this.board = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
     this.movesRemaining = 9;
     this.winner = null;
+    this.MOVES = {
+          1:[0, 0],
+          2:[0, 1],
+          3:[0, 2],
+          4:[1, 0],
+          5:[1, 1],
+          6:[1, 2],
+          7:[2, 0],
+          8:[2, 1],
+          9:[2, 2],
+        };
   }
 
   isValidMove(moveNumber) {
-    const MOVES = {
-      1: this.board[0][0],
-      2: this.board[0][1],
-      3: this.board[0][2],
-      4: this.board[1][0],
-      5: this.board[1][1],
-      6: this.board[1][2],
-      7: this.board[2][0],
-      8: this.board[2][1],
-      9: this.board[2][2]
-    };
-    let nums = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-    if (!nums.includes(Number(moveNumber))) {
-      return false;
-    }
-    if (MOVES[moveNumber] === "X" || MOVES[moveNumber] === "O") {
-      return false;
-    }
-    return true;
+    if (!this.MOVES[moveNumber]) return false;
+    let [row, col] = this.MOVES[moveNumber];
+    return typeof this.board[row][col] === "number";
   }
 
   isGameOver() {
@@ -39,39 +34,9 @@ class Board extends Array {
   }
 
   placeMark(move, sym) {
+    let [row, col] = this.MOVES[move];
     this.movesRemaining--;
-
-    switch (Number(move)) {
-      case 1:
-        this.board[0][0] = sym;
-        break;
-      case 2:
-        this.board[0][1] = sym;
-        break;
-      case 3:
-        this.board[0][2] = sym;
-        break;
-      case 4:
-        this.board[1][0] = sym;
-        break;
-      case 5:
-        this.board[1][1] = sym;
-        break;
-      case 6:
-        this.board[1][2] = sym;
-        break;
-      case 7:
-        this.board[2][0] = sym;
-        break;
-      case 8:
-        this.board[2][1] = sym;
-        break;
-      case 9:
-        this.board[2][2] = sym;
-        break;
-      default:
-        return false;
-    }
+    this.board[row][col] = sym;
   }
 
   findWinner() {
