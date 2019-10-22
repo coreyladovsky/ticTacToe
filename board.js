@@ -60,54 +60,42 @@ class Board extends Array {
     }
   }
 
-  isHorizontal() {
-    for (let i = 0; i < this.board.length; i++) {
-      if (this.board[i].every(el => el === this.board[i][0])) {
-        return this.board[i][0];
+  isHorizontal(board = this.board) {
+    for (let i = 0; i < board.length; i++) {
+      if (board[i].every(el => el === board[i][0])) {
+        return board[i][0];
       }
     }
     return false;
   }
 
-  isVertical() {
-    if (
-      this.board[0][0] === this.board[1][0] &&
-      this.board[1][0] === this.board[2][0]
-    ) {
-      return this.board[0][0];
-    }
-
-    if (
-      this.board[0][1] === this.board[1][1] &&
-      this.board[1][1] === this.board[2][1]
-    ) {
-      return this.board[0][1];
-    }
-
-    if (
-      this.board[0][2] === this.board[1][2] &&
-      this.board[1][2] === this.board[2][2]
-    ) {
-      return this.board[0][2];
-    }
-
-    return false;
+  transpose() {
+    let dup = [];
+    this.board.forEach((row, i) => {
+      dup[i] = [];
+      row.forEach((_, j) => {
+        dup[i][j] = this.board[j][i]
+      })
+    })
+    return dup
   }
 
-  isDiagnol() {
-    if (
-      this.board[0][0] === this.board[1][1] &&
-      this.board[1][1] === this.board[2][2]
-    ) {
-      return this.board[0][0];
-    }
+  isVertical() {
+    let transposed = this.transpose();
+    return this.isHorizontal(transposed)
+  }
 
-    if (
-      this.board[0][2] === this.board[1][1] &&
-      this.board[1][1] === this.board[2][0]
-    ) {
-      return this.board[0][2];
+
+
+  isDiagnol() {
+    let leftDown = [];
+    let rightDown = [];
+    for(let i = 0; i < this.board.length; i++) {
+      leftDown.push(this.board[i][i])
+      rightDown.push(this.board[this.board.length - i - 1][i])
     }
+    if(leftDown.every(el => el === leftDown[0])) return this.board[0][0]
+    if(rightDown.every(el => el === rightDown[0])) return this.board[0][this.board.length - 1]
     return false;
   }
 
